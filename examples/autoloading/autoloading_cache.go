@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/bluele/gcache"
+	"github.com/canispeakchinese/gcache"
 )
 
 func main() {
@@ -10,8 +10,8 @@ func main() {
 		LFU().
 		LoaderFunc(func(key interface{}) (interface{}, error) {
 		return fmt.Sprintf("%v-value", key), nil
-	}).
-		Build()
+	}		).
+				Build()
 
 	v, err := gc.Get("key")
 	if err != nil {
