@@ -83,7 +83,13 @@ func (c *LFUCache) set(key, value interface{}) (interface{}, error) {
 	} else {
 		// Verify size not exceeded
 		if len(c.items) >= c.size {
-			c.evict(1)
+			evictNum := c.size / 100
+			if evictNum < 0 {
+				evictNum = 1
+			} else if evictNum > 1000 {
+				evictNum = 1000
+			}
+			c.evict(evictNum)
 		}
 		item = &lfuItem{
 			clock:       c.clock,
